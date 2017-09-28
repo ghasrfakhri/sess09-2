@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Session 01</title>
+    <style>
+        .info {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="jquery-ui-1.12.1.custom/jquery-ui.css">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script>
+        var height;
+        var score = 0;
+        var f = false, l = false, r = false;
+
+
+        $(function () {
+
+            $("input[type=radio]").change(function () {
+                $(".info").hide("slow");
+                $(this).parents("div").children("div.info").show("slow");
+                // if ($("input[type=radio][value=student]").is(":checked")) {
+                //     $(".student-info").show();
+                //     $(".teacher-info").hide();
+                // }
+                // if ($("input[type=radio][value=teacher]").is(":checked")) {
+                //     $(".teacher-info").show();
+                //     $(".student-info").hide();
+                // }
+
+
+            });
+
+        });
+    </script>
+
+</head>
+
+<body>
+    <form action="">
+        <div>
+            <label>Student: <input type="radio" name="type" value="student"></label>
+            <div class="info">
+                Student Firstname:<input type="text" name="firstname"><br> Student Lastname:<input type="text" name="lastname">
+            </div>
+        </div>
+        <div>
+            <label>Teacher: <input type="radio" name="type" value="teacher"></label>
+            <div class="info">
+                Teacher Firstname:<input type="text" name="firstname"><br> Teacher Lastname:<input type="text" name="lastname">
+            </div>
+        </div>
+        <div>
+                <label>Employee: <input type="radio" name="type" value="employee"></label>
+                <div class="info">
+                    Employee Firstname:<input type="text" name="firstname"><br> Employee Lastname:<input type="text" name="lastname">
+                </div>
+    
+            </div>
+    </form>
+</body>
+
+</html>

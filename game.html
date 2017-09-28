@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Session 01</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #board {
+            background-color: green;
+            height: 100%;
+        }
+
+        #goal {
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 40%;
+            right: 40%;
+            width: 20%;
+            height: 80px;
+        }
+
+        #scoreBoard {
+            background-color: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 80px;
+            padding: 5px;
+        }
+
+        .bolet {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid brown;
+            background-color: red;
+            position: absolute;
+            z-index: 99
+        }
+
+        #tank {
+            width: 150px;
+            height: 40px;
+            position: absolute;
+            bottom: 0;
+            background-color: black;
+            z-index: 999
+        }
+    </style>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+        var height;
+        var score = 0;
+        var f = false, l = false, r = false;
+        $(function () {
+            setBoardSize();
+
+            $(window).resize(function () {
+                setBoardSize();
+            });
+
+            $("html").keyup(function (event) {
+                // console.log(event.which);
+
+                switch (event.which) {
+                    case 32:
+                        if (f !== false) {
+                            clearInterval(f);
+                            f = false;
+                        }
+                        break;
+                    case 37:
+                        if (l !== false) {
+                            clearInterval(l);
+                            l = false;
+                        }
+                        break;
+                    case 39:
+                        if (r !== false) {
+                            clearInterval(r);
+                            r = false;
+                        }
+
+                        break;
+                }
+            });
+
+
+
+            $("html").keydown(function (event) {
+                // console.log(event.which);
+
+                switch (event.which) {
+
+                    case 32:
+                        if (f === false) {
+                            f = setInterval(function () {
+                                fire();
+                            }, 800);
+                            fire();
+                        }
+                        break;
+                    case 37:
+                        if (l == false) {
+                            l = setInterval(function () {
+                                moveLeft();
+                            }, 100);
+
+                        }
+
+                        break;
+                    case 39:
+                        if (r == false) {
+                            r = setInterval(function () {
+                                moveRight();
+                            }, 100);
+
+                        }
+
+                        break;
+                }
+            });
+
+        });
+
+        function fire() {
+            var gl = parseInt($("#goal").css("left"));
+            var gr = gl + parseInt($("#goal").css("width"));
+            //  var gr = parseInt($("#goal").css("right"));
+            var bl = parseInt($("#tank").css("left")) + $("#tank").width() / 2 - 12;
+            console.log(bl, gl, gr);
+            $('<div class="bolet"></div>').appendTo($("#board"))
+                .css({
+                    "top": height - 40,
+                    "left": bl
+                })
+                .animate({
+                    top: -height,
+                }, {
+                    duration: 1000 /*,easing :  "linear"*/,
+                    // complete: function () {
+                    //     console.log(bl, gl, gr)
+
+                    //     $(this).remove();
+                    // },
+                    progress: function () {
+                        var top = parseInt($(this).css("top"));
+                        if (top <= 50) {
+                            $(this).stop();
+                            $(this).animate({
+                                top: -75,
+                                left: "-=50",
+                                width: 100,
+                                height: 100,
+                                opacity: 0
+                            }, 100, function () {
+                                $(this).remove();
+                            });
+                            if (bl > gl && bl < gr) {
+                                score++;
+                                $("#scoreBoard").text(score);
+                            }
+                        }
+                    }
+
+                });
+            ;
+        }
+        function moveLeft() {
+            $("#tank").css("left", "-=50");
+        }
+        function moveRight() {
+            $("#tank").css("left", "+=50");
+        }
+
+        function setBoardSize() {
+            height = $(window).height();
+            $("#board").height(height);
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div id="board">
+        <div id="scoreBoard">0</div>
+        <div id="goal"></div>
+        <div id="tank"></div>
+
+
+    </div>
+
+</body>
+
+</html>

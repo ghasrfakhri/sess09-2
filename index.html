@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Session 01</title>
+    <style>
+        .info {
+            display: none;
+        }
+
+        .home-address {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="jquery-ui-1.12.1.custom/jquery-ui.css">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script>
+        var height;
+        var score = 0;
+        var f = false, l = false, r = false;
+
+
+        $(function () {
+            $("input[type=radio]").change(function () {
+                $(".info").hide("slow");
+                $(this).parents("div").children("div.info").show("slow");
+            });
+
+            $("input[type=checkbox]").change(function(){
+                if($(this).is(":checked")){
+                    $(this).parents("div").find("textarea").show(1000);
+                }else if($(this).parents("div").find("textarea").val().trim() === ""){
+                    $(this).parents("div").find("textarea").hide(1000);
+                }
+                
+            });
+            $("input[type=radio]:first").prop("checked", true);
+            $("input[type=radio]:first").change();
+        });
+    </script>
+
+</head>
+
+<body>
+    <form action="">
+        <div>
+            <label>Student: <input type="radio" name="type" value="student"></label>
+            <div class="info">
+                Student Firstname:<input type="text" name="firstname"><br> Student Lastname:<input type="text" name="lastname">
+                <br>
+                <input type="checkbox">
+                <label>Home Address: <textarea class="home-address" name="home-address"></textarea></label>
+            </div>
+
+        </div>
+        <div>
+            <label>Teacher: <input type="radio" name="type" value="teacher"></label>
+            <div class="info">
+                Teacher Firstname:<input type="text" name="firstname"><br> Teacher Lastname:<input type="text" name="lastname">
+                <input type="checkbox">
+                <label>Home Address: <textarea class="home-address" name="home-address"></textarea></label>
+            </div>
+        </div>
+        <div>
+            <label>Employee: <input type="radio" name="type" value="employee"></label>
+            <div class="info">
+                Employee Firstname:<input type="text" name="firstname"><br> Employee Lastname:<input type="text" name="lastname">
+                <input type="checkbox">
+                <label>Home Address: <textarea class="home-address" name="home-address"></textarea></label>
+            </div>
+
+        </div>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Session 01</title>
+    <style>
+        #slider {
+            position: relative;
+            height: 250px;
+            width: 500px;
+            /* background-color: green; */
+            overflow: hidden;
+            ;
+        }
+
+        #slider>div {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 250px;
+            width: 500px;
+        }
+
+        #back {
+            position: absolute;
+            top: 120px;
+            left: 15px;
+            z-index: 999;
+        }
+
+        #next {
+            position: absolute;
+            top: 120px;
+            right: 15px;
+            z-index: 999;
+        }
+    </style>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+        var height;
+
+        var timerHandler = false;
+        $(function () {
+            setSlideTimer();
+
+            $("#slider").mouseover(function (event) {
+                if (timerHandler !== false) {
+                    clearInterval(timerHandler);
+                }
+            });
+
+            $("#slider").mouseout(function (event) {
+                setSlideTimer();
+            });
+
+            $("#next").click(function () {
+                slideNext($("#slider > div.slide:last"));
+                setSlideTimer();
+            });
+
+            $("#back").click(function () {
+                slideBack($("#slider > div.slide:first"));
+                setSlideTimer();
+            });
+
+        });
+        function setSlideTimer() {
+            if (timerHandler !== false) {
+                clearInterval(timerHandler);
+            }
+            timerHandler = setInterval(function () {
+                slideNext($("#slider > div.slide:last"));
+            }, 1000);
+        }
+
+
+        function slideNext(element) {
+            $(element).fadeOut(500, function () {
+                $(element).prependTo($("#slider"));
+                $(element).show(0);
+            });
+        }
+        function slideBack(element) {
+            $(element).hide();
+            $(element).appendTo($("#slider"));
+            $(element).fadeIn(500, function () {
+
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <div id="slider">
+        <div class="slide"><img src="images/1.jpg"></div>
+        <div class="slide"><img src="images/2.jpg"></div>
+        <div class="slide"><img src="images/3.jpg"></div>
+        <span id="next">Next</span>
+        <span id="back">Back</span>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Session 01</title>
+    <style>
+        /* #dialog {
+            display: none;
+        } */
+    </style>
+    <link rel="stylesheet" href="jquery-ui-1.12.1.custom/jquery-ui.css">
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script>
+        var height;
+        var score = 0;
+        var f = false, l = false, r = false;
+
+
+        $(function () {
+            $("#dialog").dialog({
+                autoOpen: false,
+                resizable: false,
+                close: function (event, ui) {
+                    alert("bye");
+                }
+            });
+            $("button").click(function () {
+                $("#dialog").dialog("open");
+            });
+            $("#close").click(function () {
+                $("#dialog").dialog("close");
+            });
+
+
+
+        });
+    </script>
+
+</head>
+
+<body>
+    <button>open</button>
+    <button id="close">Close</button>
+    <div id="dialog" title="Test">
+        This is a test
+    </div>
+
+</body>
+
+</html>
